@@ -226,6 +226,28 @@ endif
 
 LOCAL_SHARED_LIBRARIES += libbase libhidlbase libhwbinder libutils android.hardware.power@1.2 liblog
 
+ifeq ($(strip $(AUDIO_FEATURE_ENABLED_TFA98XX)),true)
+    LOCAL_CFLAGS += -DENABLE_TFA98XX
+    ifdef TFA98XX_CTL_NAME
+    LOCAL_CFLAGS += -DTFA98XX_CTL_NAME=\"$(TFA98XX_CTL_NAME)\"
+    endif
+    ifdef TFA98XX_LIB_NAME
+    LOCAL_CFLAGS += -DTFA98XX_LIB_NAME=\"$(TFA98XX_LIB_NAME)\"
+    endif
+    ifdef TFA98XX_FUNC_CALIBRATION
+    LOCAL_CFLAGS += -DTFA98XX_FUNC_CALIBRATION=\"$(TFA98XX_FUNC_CALIBRATION)\"
+    endif
+    ifdef TFA98XX_FUNC_SPEAKERON
+    LOCAL_CFLAGS += -DTFA98XX_FUNC_SPEAKERON=\"$(TFA98XX_FUNC_SPEAKERON)\"
+    endif
+    ifdef TFA98XX_FUNC_SPEAKEROFF
+    LOCAL_CFLAGS += -DTFA98XX_FUNC_SPEAKEROFF=\"$(TFA98XX_FUNC_SPEAKEROFF)\"
+    endif
+endif
+
+LOCAL_CFLAGS += -Wall -Werror
+LOCAL_CLANG_CFLAGS += -Wno-unused-variable -Wno-unused-function -Wno-missing-field-initializers
+
 LOCAL_SRC_FILES += audio_perf.cpp
 
 LOCAL_HEADER_LIBRARIES += libhardware_headers

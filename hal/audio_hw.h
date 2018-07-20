@@ -448,7 +448,27 @@ int enable_audio_route(struct audio_device *adev,
 
 struct audio_usecase *get_usecase_from_list(struct audio_device *adev,
                                             audio_usecase_t uc_id);
+struct audio_usecase *get_usecase_from_list(const struct audio_device *adev,
+                                                   audio_usecase_t uc_id);
 
+struct stream_in *get_next_active_input(const struct audio_device *adev);
+
+bool is_offload_usecase(audio_usecase_t uc_id);
+
+bool audio_is_true_native_stream_active(struct audio_device *adev);
+
+#ifdef ENABLE_TFA98XX
+static int pcm_open_device(struct stream_out *out);
+#endif
+
+bool audio_is_dsd_native_stream_active(struct audio_device *adev);
+
+uint32_t adev_get_dsp_bit_width_enforce_mode();
+
+int pcm_ioctl(struct pcm *pcm, int request, ...);
+
+audio_usecase_t get_usecase_id_from_usecase_type(const struct audio_device *adev,
+                                                 usecase_type_t type);
 int check_a2dp_restore(struct audio_device *adev, struct stream_out *out, bool restore);
 
 #define LITERAL_TO_STRING(x) #x
